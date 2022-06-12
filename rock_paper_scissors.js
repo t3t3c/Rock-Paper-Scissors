@@ -1,19 +1,20 @@
 "use strict";
 
+const scoreboard = {
+  wins: 0,
+  losses: 0,
+  draws: 0
+};
+
 function computerPlay() {
-  let randomNumber = Math.random() * 3; // *3 to get value between 0 and 3
-  if (randomNumber <= 1) {
-    return "Rock";
-  } else if (randomNumber <= 2) {
-    return "Paper";
-  } else {
-    // random number <= 3
-    return "Scissors";
-  }
+  const choice = ["Rock", "Paper", "Scissors"];
+  return choice[Math.floor(Math.random() * choice.length)];
 }
 
 function checkIfRandom(howMuch) {
-  let rock = (paper = scissors = 0);
+  // testing function for computerPlay()
+  let rock, paper, scissors;
+  rock = paper = scissors = 0;
   for (let i = 0; i < howMuch; i++) {
     switch (computerPlay()) {
       case "Rock":
@@ -31,14 +32,6 @@ function checkIfRandom(howMuch) {
   return lista;
 }
 
-function makeCaseInsetentive(userInput) {
-  if (userInput == null) {
-    return "";
-  } else {
-    return userInput.charAt(0).toUpperCase() + userInput.slice(1).toLowerCase();
-  }
-}
-
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) {
     return `It's a draw! You both chose ${computerSelection}`;
@@ -51,14 +44,6 @@ function playRound(playerSelection, computerSelection) {
   } else {
     // Computer wins
     return `You loose! Computer's ${computerSelection} beats ${playerSelection}`;
-  }
-}
-
-function game() {
-  // play the game 5 times
-  for (let i = 0; i < 5; i++) {
-    let result = playRound(playerPlay(), computerPlay());
-    console.log(result);
   }
 }
 
@@ -78,7 +63,65 @@ function playerPlay() {
   }
 }
 
-game();
+function playRoundButton(e) {
+  let playerSelection = e.target.dataset.choice;
+  let computerSelection = computerPlay();
+  if (playerSelection === computerSelection) {
+    displayResult(`It's a draw! You both chose ${computerSelection}`);
+    scoreboard.draws += 1;
+  } else if (
+    (playerSelection === "Rock" && computerSelection === "Scissors") ||
+    (playerSelection === "Paper" && computerSelection === "Rock") ||
+    (playerSelection == -"Scissors" && computerSelection === "Paper")
+  ) {
+    displayResult(
+      `You win! Your ${playerSelection} beats ${computerSelection}`
+    );
+    scoreboard.wins += 1
+  } else {
+    // Computer wins
+    displayResult(
+      `You loose! Computer's ${computerSelection} beats ${playerSelection}`
+    );
+    scoreboard.losses += 1
+  }
+}
 
-console.log("this is made in a test branch");
-console.log("rps ui");
+function playAgain() {
+  scoreboard.wins = scoreboard.losses = scoreboard.draws = 0;
+  const counter = document.querySelector('.counter');
+  counter.textContent = `Wins: 0, Losses: 0, Draws: 0`
+  
+}
+
+function makeButtons() {
+  const buttons = document.querySelectorAll("button[data-choice]");
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", e => {
+      playRoundButton(e);
+      displayScore();
+      if (scoreboard.wins >= 5) {
+        const displayer = document.querySelector(".display");
+        displayer.textContent = 'YOU WON! Press any button to start again';
+        playAgain();
+      }
+      if (scoreboard.losses >= 5) {
+        const displayer = document.querySelector(".display");
+        displayer.textContent = 'YOU LOST! Press any button to start again'
+        playAgain();
+      }
+    });
+  }
+}
+
+function displayResult(result) {
+  const displayer = document.querySelector(".display");
+  displayer.textContent = result;
+}
+
+function displayScore() {
+  const counter = document.querySelector('.counter');
+  counter.textContent = `Wins: ${scoreboard.wins}, Losses: ${scoreboard.losses}, Draws: ${scoreboard.draws}`
+};
+
+makeButtons();

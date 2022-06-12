@@ -1,16 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
     <title>Document</title>
-</head>
+    <script src="rock_paper_scissors.js" defer></script>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        background-color: #ccc;
+      }
+      .display {
+        margin: 50px;
+      }
+      button {
+        color: brown;
+        width: 100px;
+        height: 30px;
+      }
+      a {
+        margin-bottom: 100px;
+        margin-top: 0px;
+      }
+      h1 {
+        margin-bottom: 0px;
+      }
+    </style>
+  </head>
 
-<body>
-    <h1>Rock, Paper, Scissors</h1>
-    <script src='rock_paper_scissors.js'></script>
-</body>
-
+  <body>
+    <h1>Rock, Paper, Scissors<br />THE GAME</h1>
+    <h2>Score 5 points to win!</h2>
+    <a href="how_to_play.html">What are the rules?</a>
+    <div>
+      <button data-choice="Rock">Rock</button>
+      <button data-choice="Paper">Paper</button>
+      <button data-choice="Scissors">Scissors</button>
+    </div>
+    <div class="display">Press any button to start</div>
+    <div class="counter">Wins: 0, Losses: 0, Draws: 0</div>
+  </body>
 </html>
