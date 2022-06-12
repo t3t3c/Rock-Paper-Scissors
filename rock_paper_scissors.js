@@ -81,7 +81,7 @@ function playRoundButton(e) {
   } else {
     // Computer wins
     displayResult(
-      `You loose! Computer's ${computerSelection} beats ${playerSelection}`
+      `You lose! Computer's ${computerSelection} beats ${playerSelection}`
     );
     scoreboard.losses += 1
   }
