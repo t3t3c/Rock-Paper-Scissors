@@ -77,7 +77,4 @@ function playerPlay() {
     return playerPlay();
   }
 }
-
 game();
-
-console.log("this is made in a test branch");

@@ -1,9 +1,10 @@
 "use strict";
+// @ts-check
 
 const scoreboard = {
   wins: 0,
   losses: 0,
-  draws: 0
+  draws: 0,
 };
 
 function computerPlay() {
@@ -77,37 +78,36 @@ function playRoundButton(e) {
     displayResult(
       `You win! Your ${playerSelection} beats ${computerSelection}`
     );
-    scoreboard.wins += 1
+    scoreboard.wins += 1;
   } else {
     // Computer wins
     displayResult(
       `You lose! Computer's ${computerSelection} beats ${playerSelection}`
     );
-    scoreboard.losses += 1
+    scoreboard.losses += 1;
   }
 }
 
 function playAgain() {
   scoreboard.wins = scoreboard.losses = scoreboard.draws = 0;
-  const counter = document.querySelector('.counter');
-  counter.textContent = `Wins: 0, Losses: 0, Draws: 0`
-  
+  const counter = document.querySelector(".counter");
+  counter.textContent = `Wins: 0, Losses: 0, Draws: 0`;
 }
 
 function makeButtons() {
   const buttons = document.querySelectorAll("button[data-choice]");
   for (let i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener("click", e => {
+    buttons[i].addEventListener("click", (e) => {
       playRoundButton(e);
       displayScore();
       if (scoreboard.wins >= 5) {
         const displayer = document.querySelector(".display");
-        displayer.textContent = 'YOU WON! Press any button to start again';
+        displayer.textContent = "YOU WON! Press any button to start again";
         playAgain();
       }
       if (scoreboard.losses >= 5) {
         const displayer = document.querySelector(".display");
-        displayer.textContent = 'YOU LOST! Press any button to start again'
+        displayer.textContent = "YOU LOST! Press any button to start again";
         playAgain();
       }
     });
@@ -120,8 +120,8 @@ function displayResult(result) {
 }
 
 function displayScore() {
-  const counter = document.querySelector('.counter');
-  counter.textContent = `Wins: ${scoreboard.wins}, Losses: ${scoreboard.losses}, Draws: ${scoreboard.draws}`
-};
+  const counter = document.querySelector(".counter");
+  counter.textContent = `Wins: ${scoreboard.wins}, Losses: ${scoreboard.losses}, Draws: ${scoreboard.draws}`;
+}
 
 makeButtons();
